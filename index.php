@@ -1,3 +1,15 @@
+<?php
+if(isset($_POST['submit'])){
+    // include("crud.php");
+
+    // $crud = new crud();
+    // $data = $crud->tables();
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +26,9 @@
         <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/jquery.datetimepicker.css">
+        
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,6 +42,17 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="stylesheet" href="assets/css/datepicker.css">
+        <script src="bower_components/jquery/jquery.min.js"></script>
+        <script src="assets/js/jquery.datetimepicker.js"></script>
+
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+        
+
+
+
+
 
     </head>
 
@@ -53,39 +79,71 @@
                 
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-                    	<form role="form" action="" method="post" class="f1">
 
-                    		<h3>Register To Our App</h3>
-                    		<p>Fill in the form to get instant access</p>
+
+                    	<form role="form" action="index.php" method="post" class="f1">
+
+                    		
                     		<div class="f1-steps">
                     			<div class="f1-progress">
                     			    <!-- <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div> -->
                     			</div>
                     			
                     			
-                    		    <div class="f1-step" style="text-align: center;">
+                    		    <!-- <div class="f1-step" style="text-align: center;">
                     				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
                     				<p>social</p>
-                    			</div>
+                    			</div> -->
                     		</div>
                     		
                     		<fieldset>
-                    		    <h4>Tell us who you are:</h4>
                     			<div class="form-group">
-                    			    <label class="sr-only" for="f1-first-name">First name</label>
-                                    <input type="text" name="f1-first-name" placeholder="First name..." class="f1-first-name form-control" id="f1-first-name">
+                    			    <label class="" for="f1-first-name">Company Name:</label>
+                                    <input type="text" name="cname" placeholder="Company Name..." class="f1-first-name form-control" id="f1-first-name">
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-last-name">Last name</label>
-                                    <input type="text" name="f1-last-name" placeholder="Last name..." class="f1-last-name form-control" id="f1-last-name">
+                                    <label class="" for="f1-first-name">Select Batch:</label>
+                                    <select class="form-control" name="batch">
+                                    <?php  
+
+                                        include("crud.php");
+                                        $crud = new crud();
+                                        $data = $crud->tables();
+
+                                        for($i=0; $i<sizeof($data); $i++) {
+                                            echo "<option value='".$data[$i]['table_name']."'>".$data[$i]['table_name']."</option>";
+                                        }
+                                      
+                                            // print_r($data[1]['table_name']);
+
+                                      ?>
+                                    </select>
+
                                 </div>
+
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-about-yourself">About yourself</label>
-                                    <textarea name="f1-about-yourself" placeholder="About yourself..." 
-                                    	                 class="f1-about-yourself form-control" id="f1-about-yourself"></textarea>
+                                    <div class='input-group date' id=''>
+                                        <label class="" for="f1-first-name">Enter Date:</label>
+                                        <input type='text' name="date" class="form-control" />
+                                        </span>
+                                    </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <div class='input-group date' id=''>
+                                        <label class="" for="f1-first-name">Enter Start time:
+                                        <input type='text' name="stime" class="form-control" /></label>
+
+                                        <label class="" for="f1-first-name">Enter End time:
+                                        <input type='text' name="etime" class="form-control" /></label>
+                                        </span>
+                                    </div>
+                                </div>
+                                
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="submit" name="submit" class="btn btn-next">Submit</button>
                                 </div>
                             </fieldset>
                     	</form>
@@ -97,15 +155,13 @@
 
 
         <!-- Javascript -->
-        <script src="assets/js/jquery-1.11.1.min.js"></script>
+
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.backstretch.min.js"></script>
         <script src="assets/js/retina-1.1.0.min.js"></script>
         <script src="assets/js/scripts.js"></script>
+
         
-        <!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
-        <![endif]-->
 
     </body>
 

@@ -1,4 +1,5 @@
 
+
 function scroll_to_class(element_class, removed_height) {
 	var scroll_to = $(element_class).offset().top - removed_height;
 	if($(window).scrollTop() != scroll_to) {
@@ -24,14 +25,9 @@ jQuery(document).ready(function() {
     /*
         Fullscreen background
     */
-    $.backstretch("assets/img/backgrounds/1.jpg");
+    $.backstretch("assets/img/backgrounds/1@2x.jpg");
     
-    $('#top-navbar-1').on('shown.bs.collapse', function(){
-    	$.backstretch("resize");
-    });
-    $('#top-navbar-1').on('hidden.bs.collapse', function(){
-    	$.backstretch("resize");
-    });
+  
     
     /*
         Form
