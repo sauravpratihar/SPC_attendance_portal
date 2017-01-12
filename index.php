@@ -1,9 +1,52 @@
 <?php
-if(isset($_POST['submit'])){
-    // include("crud.php");
 
-    // $crud = new crud();
-    // $data = $crud->tables();
+include("crud.php");
+$crud = new crud();
+$tbl = $crud->tables();
+
+if(isset($_POST['submit'])){
+    $cname = $_POST['cname'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $batch = $_POST['batch'];
+    // echo $time;
+    $datetime = $date." ".$time;
+    // echo $datetime."<br>";
+    // echo $batch."<br>";
+    // echo $date."<br>";
+
+
+    $data = $crud->data($batch, $datetime, $date);
+
+    if(!sizeof($data)){
+        echo "<script>alert('No Records Found');</script>";
+    }
+
+    else{
+        // download Excel
+
+
+        header( "Content-Type: application/vnd.ms-excel" );
+        header( "Content-disposition: attachment; filename=".$cname.".xls" );
+    
+        // print your data here. note the following:
+        // - cells/columns are separated by tabs ("\t")
+        // - rows are separated by newlines ("\n")
+        
+        // for example:
+        echo 'Student ID' . "\t" . 'Attendance' . "\n";
+        
+
+
+
+        for($j=0; $j<sizeof($data); $j++){
+            // echo $data[$j]['FirstName']."<br>";
+            echo $data[$j]['FirstName'] . "\t" . 'P' . "\n";
+        }
+
+        exit();
+    }
+
 
 }
 
@@ -108,12 +151,10 @@ if(isset($_POST['submit'])){
                                     <select class="form-control" name="batch">
                                     <?php  
 
-                                        include("crud.php");
-                                        $crud = new crud();
-                                        $data = $crud->tables();
+                                    
 
-                                        for($i=0; $i<sizeof($data); $i++) {
-                                            echo "<option value='".$data[$i]['table_name']."'>".$data[$i]['table_name']."</option>";
+                                        for($i=0; $i<sizeof($tbl); $i++) {
+                                            echo "<option value='".$tbl[$i]['table_name']."'>".$tbl[$i]['table_name']."</option>";
                                         }
                                       
                                             // print_r($data[1]['table_name']);
@@ -125,20 +166,18 @@ if(isset($_POST['submit'])){
 
                                 <div class="form-group">
                                     <div class='input-group date' id=''>
-                                        <label class="" for="f1-first-name">Enter Date:</label>
+                                        <label class="" for="f1-first-name">Enter Date: (eg: YYYY-MM-DD)</label>
                                         <input type='text' name="date" class="form-control" />
-                                        </span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class='input-group date' id=''>
-                                        <label class="" for="f1-first-name">Enter Start time:
-                                        <input type='text' name="stime" class="form-control" /></label>
+                                        <label class="" for="f1-first-name">Enter start time: (eg: 13:15:00)
+                                        <input type='text' name="time" class="form-control" /></label>
 
-                                        <label class="" for="f1-first-name">Enter End time:
-                                        <input type='text' name="etime" class="form-control" /></label>
-                                        </span>
+                                        <!-- <label class="" for="f1-first-name">Enter End time: (eg: 15:30:00) -->
+                                        <!-- <input type='text' name="etime" class="form-control" /></label> -->
                                     </div>
                                 </div>
                                 

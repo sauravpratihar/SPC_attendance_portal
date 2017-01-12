@@ -6,7 +6,7 @@ class crud{
 	private $host="localhost";
 	private $user="root";
 	private $db="spc";
-	private $pass="saorav08";
+	private $pass="";
 	private $conn;
 	
 	
@@ -31,17 +31,33 @@ class crud{
 	}
 
 
-	public function data($batch, $dt, $stime, $etime ){
-		$sql = "";
-
-		$q = $this->conn->prepare($sql);
+	public function data($batch, $datetime,$date){
+		$sql2 = "SELECT FirstName FROM $batch AS B WHERE '$datetime' <= (SELECT TimeStamp from $batch AS C WHERE B.id = C.id)AND '$date' >= (SELECT date(TimeStamp) from $batch AS C WHERE B.id = C.id)";
+		// echo $sql2;
+		$q2 = $this->conn->prepare($sql2);
 
 		// $q->execute(array(':name'=>$name));
-		$q->execute();
-		$d = $q->rowCount();
- 		return $d;
+		$q2->execute();
+		$d2 = $q2->fetchAll(PDO::FETCH_ASSOC);
+ 		return $d2;
 
 	}
+
+
+	// public function date($batch, $dt, $stime, $etime ){
+	// 	$sql = "";
+
+	// 	$q = $this->conn->prepare($sql);
+
+	// 	// $q->execute(array(':name'=>$name));
+	// 	$q->execute();
+	// 	$d = $q->rowCount();
+ // 		return $d;
+
+	// }
+
+
+
 
 
 
