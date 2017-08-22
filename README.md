@@ -1,4 +1,4 @@
-# Student Placement Cell(DAIICT) Attendance Portal
+# Student Placement Cell(DAIICT) Attendance Portal (Currently (2016-17) implemented in DAIICT)
 <br>
 QR code recognized by android app send the data to server, and server store the infomation of attendence during the placement session. 
 <br>
